@@ -24,3 +24,17 @@ When you have running Traefik you can also any additional container. Remember to
    --expose 8080 \
    --label traefik.http.routers.adam-hello-world.rule="Host(\`adam.devduck.ml\`)" adamgolab/hello-world
 ```
+
+## 02 File Provider
+
+More real world scenario, with configuration provided by config file.
+
+Additionally Traefik provides Web UI for checking added routes and services.
+
+Again everything can be run via simple command:
+
+```
+docker-compose up -d
+```
+
+When everything is set up and running you can view the dashboard on `treafik.devduck.ml`.

@@ -3,17 +3,22 @@ version: '3.6'
 services:
   traefik:
     image: traefik:2.0
-    command: --providers.docker
     ports:
       - "80:80"
+    expose:
+      - "8080"
     volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      traefik.http.routers.traefik.rule: 'Host(`traefik.devduck.ml`)'
+      traefik.http.services.traefik.loadbalancer.server.port: 8080
 
   hello-world:
     image: adamgolab/hello-world
     environment:
       - PORT=80
-      - WORLD=DevDuck
+      - WORLD=DevDuck with file provider
     expose:
       - "80"
     labels:

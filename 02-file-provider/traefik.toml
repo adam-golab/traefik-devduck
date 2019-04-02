@@ -1,0 +1,9 @@
+[entrypoints]
+  [entrypoints.http]
+    address = ":80" # Listen on port 80 for incoming requests
+
+[api] # Enable Web UI
+
+[providers]
+  [providers.docker] # Enable Docker provider
+    endpoint = "unix:///var/run/docker.sock"
