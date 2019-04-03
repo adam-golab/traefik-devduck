@@ -1,0 +1,20 @@
+[entrypoints]
+  [entrypoints.http]
+    address = ":80" # Listen on port 80 for incoming requests
+
+  [entrypoints.https]
+    address = ":443"
+
+[acme] # every router with TLS enabled will now be able to use ACME for its certificates
+  email = "adam@brainhub.pl"
+  storage = "/etc/traefik/acme.json"
+  onHostRule = true # dynamic generation based on the Host() & HostSNI() matchers
+  [acme.httpChallenge]
+    entryPoint = "http" # used during the challenge
+  
+[api] # Enable Web UI
+
+[providers]
+  [providers.docker] # Enable Docker provider
+    endpoint = "unix:///var/run/docker.sock"
+

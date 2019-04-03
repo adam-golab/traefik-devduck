@@ -1,8 +1,8 @@
-version: '3.6'
+version: '3'
 
 services:
   traefik:
-    image: traefik:2.0
+    image: containous/traefik:experimental-v2.0 
     command: --providers.docker
     ports:
       - "80:80"
@@ -17,4 +17,4 @@ services:
     expose:
       - "80"
     labels:
-      traefik.http.routers.hello-world.rule: 'Host(`devduck.ml`)'
+      - "traefik.http.routers.hello-world.rule=Host(`devduck.ml`)"

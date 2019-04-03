@@ -38,3 +38,16 @@ docker-compose up -d
 ```
 
 When everything is set up and running you can view the dashboard on `treafik.devduck.ml`.
+
+## 03 TLS Support
+
+We are living in 2019 so why the response should not be encrypted? When there is present a flag for enabling TLS support `tls=true`,
+Traefik will automatically look for a corresponding certificate and encrypt the response. 
+
+Run everything with command:
+
+```
+docker-compose up -d
+```
+
+After that you can check the encrypted response on `https://tls.devduck.ml`. Check the certificate that is obtained from [Let's Encrypt](https://letsencrypt.org/) service.

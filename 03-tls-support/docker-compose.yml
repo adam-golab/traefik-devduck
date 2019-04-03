@@ -5,8 +5,10 @@ services:
     image: containous/traefik:experimental-v2.0 
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./acme.json:/etc/traefik/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - "traefik.http.routers.traefik.rule=Host(`traefik.devduck.ml`)"
@@ -15,9 +17,10 @@ services:
   hello-world:
     image: adamgolab/hello-world
     environment:
-      - PORT=80
-      - WORLD=DevDuck with file provider
+      - PORT=8000
+      - WORLD=TLS Support
     expose:
-      - "80"
+      - "8000"
     labels:
-      - "traefik.http.routers.hello-world.rule=Host(`devduck.ml`)"
+      - "traefik.http.routers.hello-world.rule=Host(`tls.devduck.ml`)"
+      - "traefik.http.routers.hello-world.tls=true"
