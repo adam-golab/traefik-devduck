@@ -1,0 +1,16 @@
+[entrypoints]
+  [entrypoints.web]
+    address = ":80" # Listen on port 80 for incoming requests
+
+  [entrypoints.https]
+    address = ":443"
+
+  [entryPoints.mongo]
+    address = ":27017"
+
+[api] # Enable Web UI
+
+[providers]
+  [providers.docker] # Enable Docker provider
+    endpoint = "unix:///var/run/docker.sock"
+

@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  traefik:
+    image: containous/traefik:experimental-v2.0 
+    ports:
+      - "80:80"
+      - "443:443"
+      - "27017:27017"
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./acme.json:/etc/traefik/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.http.routers.traefik.rule=Host(`traefik.devduck.ml`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+  hello-world:
+    image: adamgolab/hello-world
+    environment:
+      - PORT=8000
+      - WORLD=HTTP Service
+    expose:
+      - "8000"
+    labels:
+      - "traefik.http.routers.hello-world.rule=Host(`devduck.ml`)"
+
+  mongo:
+    image: mongo:4
+    env_file:
+      - variables.env
+    labels:
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mongo.entrypoints=mongo"
+      - "traefik.tcp.services.mongo.loadbalancer.server.port=27017"
+
+
+    
