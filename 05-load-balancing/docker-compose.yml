@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  traefik:
+    image: containous/traefik:experimental-v2.0 
+    ports:
+      - "80:80"
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.http.routers.traefik.rule=Host(`traefik.devduck.ml`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+  good-thanos:
+    image: adamgolab/hello-world
+    environment:
+      - PORT=80
+      - WORLD=, You were spared by Thanos
+    expose:
+      - "80"
+    labels:
+      - "traefik.http.routers.thanos.rule=Host(`thanos.devduck.ml`)"
+      - "traefik.http.routers.thanos.service=thanos"
+      - "traefik.http.services.thanos.loadbalancer.server.weight=50"
+
+  evil-thanos:
+    image: adamgolab/hello-world
+    environment:
+      - PORT=80
+      - WORLD=, You were slain by Thanos
+    expose:
+      - "80"
+    labels:
+      - "traefik.http.services.thanos.loadbalancer.server.weight=50"
+

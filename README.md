@@ -65,3 +65,16 @@ docker-compose up -d
 ```
 
 On `http://devduck.ml/` should be displayed an webpage with a Hello World message, but you are able to hit the MongoDB instance on `devduck.ml:27017`.
+
+## 05 Load Balancing
+
+The load balancers are able to load balance the requests between multiple instances of your programs.
+
+Run everything with:
+
+```
+docker-compose up -d
+```
+
+On `http://thanos.devduck.ml` should be displayed a message from one of the containers. Every second request should be should be handled by the second container.
+Refresh the page a few times to see different results.
