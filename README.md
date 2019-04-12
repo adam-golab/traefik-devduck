@@ -1,5 +1,8 @@
 # Traefik DevDuck presentation files
 
+**IMPORTANT NOTE:** As this presentation is based on experimental alpha version of Traefik 2.0 it is not recommended to run examples from this repo in production.
+Always use the official image from the [Docker Hub](https://hub.docker.com/_/traefik).
+
 ## 01 Quick Start
 
 Run without any additional configuration just run the following command:
